@@ -6,7 +6,7 @@ apropos tftp
 sudo launchctl load -F /System/Library/LaunchDaemons/tftp.plist
 netstat -na |grep \*.69
 cd /private/tftpboot
-cp ~/Downloads/xxx .
+sudo cp ~/Downloads/xxx .
 ls
 chmod 766 xxx
 
