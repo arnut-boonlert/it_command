@@ -14,24 +14,37 @@ screen -h 10000 /dev/tty.xxxx 9600.
 screnn -h 10000 -L -Logfile [file_name] /dev/tty.xxxx 9600
 
 
+## kill detach session]
+
+screen -X -S [id] quit
+
+#or (dead session)
+
+screen -wipe
+
+
+
 ####### Option #######
 -h [num]    	# set scroll back lines
 -L		# enable log and save after close session
 -Logfile [name]	# custom log file name
 -ls		# show all session
--r [pid]	# reattach session
+-r [id]		# reattach session
+-X 		# Send the specified command
 
-
-####### Utilize #######
+####### Utility #######
 
 - close and kill session:
 ctl + a + k
 
-- close but not kill session (deattach)
+- close but not kill session (detach)
 ctl + a + d 
 
 - scroll up, down:
 ctl + a + esc --> esc
+
+- enter command line
+ctl + a + :
 
 - more scroll back buffer (for backup config):
 ctl + a + : + scrollback 10000
