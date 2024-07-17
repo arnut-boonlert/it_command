@@ -1,0 +1,12 @@
+dhcp-server pool "data"
+default-router 10.1.1.1
+dns-server 10.1.1.2
+domain-name domain.com
+network 10.1.1.0 255.255.255.0
+range 10.1.1.10 10.1.1.130
+
+exit
+dhcp-server enable
+
+int 1
+dhcp-server

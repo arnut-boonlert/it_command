@@ -1,0 +1,79 @@
+-- NTP Sever setting --
+- device A -
+system-view
+ntp-service enable
+
+ntp-service refclock-master 2
+
+vlan <number of vlan>
+qu
+
+int vlan-int <number of vlan>
+ip add <ip add> <sub-netmask>
+qu
+
+int <type of int> <number of int>
+port link-type access
+port acess vlan <number of vlan>
+
+- device B -
+vlan <number of vlan>
+qu
+
+int vlan-int <number of vlan>
+ip add <ip add> <sub-netmask>
+qu
+
+int <type of int> <number of int>
+port link-type access
+port acess vlan <number of vlan>
+
+ntp-service enable
+
+ntp-service unicast-server <number ip add of 1st device>
+
+display ntp-service status
+
+display ntp-service sessions
+
+
+-- username password --
+system-view
+
+ssh server enable
+
+vlan <number of vlan>
+qu
+
+int vlan-int <number of vlan>
+ip add <ip add> <sub-netmask>
+qu
+
+int <type of int> <number of int>
+port link-type access
+port acess vlan <number of vlan>
+
+line vty 0 63
+authentication-mode scheme
+quit
+
+local-user client001 class manage
+password simple aabbcc
+
+service-type ssh
+authorization-attribute user-role network-admin
+
+local-user client001
+service-type telnet
+authorization-attribute user-role network-admin
+line vty 0 4
+authentication-mode scheme
+
+-- snmp --
+snmp-agent community read testsnmp
+snmp-agent target-host trap address udp-domain 10.0.0.3 params securityname testsnmp v1
+snmp-agent sys-info version all
+
+
+-- ststic route --
+ip route-static 0.0.0.0 0 10.216.247.35

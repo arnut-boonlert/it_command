@@ -1,0 +1,14 @@
+interface Bridge-Aggregation1
+ description aacmdb01
+ port access vlan 1916
+ link-aggregation mode dynamic
+#
+interface Bridge-Aggregation2
+ link-aggregation mode dynamic
+#
+interface Bridge-Aggregation99
+ description TNSO:TM:SW:LAG-7:CORE:CWDC-2-BB-TM-EX4200
+ port link-type trunk
+ undo port trunk permit vlan 1
+ port trunk permit vlan 3 526 1916 to 1917 2901 2903
+ link-aggregation mode dynamic

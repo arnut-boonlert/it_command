@@ -1,0 +1,27 @@
+
+
+apropos tftp
+
+### start
+sudo launchctl load -F /System/Library/LaunchDaemons/tftp.plist
+netstat -na |grep \*.69
+cd /private/tftpboot
+cp ~/Downloads/xxx .
+ls
+chmod 766 xxx
+
+
+
+
+### stop
+sudo launchctl unload -F /System/Library/LaunchDaemons/tftp.plist
+netstat -na |grep \*.69
+
+
+
+
+If ask for permission -> sudo
+
+
+
+https://rick.cogley.info/post/run-a-tftp-server-on-mac-osx/

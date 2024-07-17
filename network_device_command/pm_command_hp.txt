@@ -1,0 +1,13 @@
+
+
+
+dis version
+dis device manuinfo
+dis environment
+dis fan
+dis power
+dis clock
+dis int brief
+dis irf 
+dis irf link
+dis curr

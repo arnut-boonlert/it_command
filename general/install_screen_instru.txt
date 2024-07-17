@@ -1,0 +1,31 @@
+### For upgrade screen version (we need -Logfile option older versions are not provided)
+### Note that this instruction won't remove build in "screen" in your mac 
+### If you want to remove it ... GO AHEAD!!
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
+eval "$(/opt/homebrew/bin/brew shellenv)"
+brew --version
+brew install screen
+
+# Check the path of `screen` to verify it's from `/usr/bin`
+## expected output look like: /opt/homebrew/bin/screen
+|
+v
+which screen
+
+# We need 4.09.xx ++ version (they included -Logfile option)
+screen -v
+
+# Add Homebrew bin directory to PATH for Bash
+export PATH="/opt/homebrew/bin:$PATH"  # For ARM Macs
+# or
+export PATH="/usr/local/bin:$PATH"    # For Intel Macs
+
+# Apply change
+source ~/.bash_profile
+# or
+source ~/.zshrc
+
+which screen
+screen -v

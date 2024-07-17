@@ -1,0 +1,12 @@
+setenv master 172.16.23.10
+setenv serverip 172.16.23.10
+setenv ipaddr 172.16.21.253
+setenv netmask 255.255.255.0
+setenv gatewayip 172.16.21.254
+
+setenv dnsip 10.90.10.31
+setenv domainname bdms.co.th
+setenv name
+
+save
+boot

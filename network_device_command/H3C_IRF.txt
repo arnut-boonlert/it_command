@@ -1,0 +1,45 @@
+--- irf zone ---
+dis dev
+dis irf configuration
+ 
+--- irf config ---
+- device 1 -
+int <range or not> <number of interface>
+shut
+qu
+irf member 1 priority 32
+irf-port 1/2
+port group interface <ge or xge> <number of interface>
+มีกี่อันก็ใส่
+qu
+
+int <range or not> <number of interface>
+undo shut
+
+irf-port-configuration active
+
+sav f
+
+int <ge or xge> <number of interface>
+shut
+
+- device 2 -
+irf member 1 renumber 2 <--- เปลี่ยนตามลำดับเครื่อง
+ret
+sav f
+reboot
+
+int <range or not> <number of interface>
+shut
+
+irf-port 2/1
+port group interface <number of interface>
+qu
+
+int <range or not> <number of interface>
+undo shut
+qu
+
+irf-port-configuration active
+
+sav f

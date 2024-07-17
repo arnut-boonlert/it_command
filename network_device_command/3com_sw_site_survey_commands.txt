@@ -1,0 +1,10 @@
+dis version
+display current
+dis vlan
+dis interface brief
+dis lldp ne
+dis lldp ne list
+dis lldp ne ver
+dis stp
+dis irf
+dis irf link

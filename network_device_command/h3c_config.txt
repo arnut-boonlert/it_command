@@ -1,0 +1,34 @@
+-- vlan zone --
+
+vlan <number of vlan>
+name <name of vlan>
+
+int <ge or xge> <number of interface>
+port link-type access
+port access vlan <vlan number>
+
+int vlan-int <vlan number>
+ip add <ip and sub-netmask>
+
+--- config zone ---
+- trunk -
+int Bridge-Aggregation <number>
+port link-type trunk
+port trunk permit vlan <vlan number>
+link-aggregation mode dynamic
+
+int <ge or xge> <number of interface>
+port link-type trunk
+port trunk permit vlan <number of vlan>
+port link-aggregation group <group number>
+
+- access -
+int Bridge-Aggregation <number>
+port link-type access
+port access vlan <number of vlan>
+
+int <ge or xge> <number of interface>
+port link-type access
+port access vlan <number of vlan>
+port link-aggregation group <group number>
+

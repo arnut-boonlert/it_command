@@ -1,0 +1,30 @@
+-- Config vlan --
+vlan 100
+qu
+vlan 200
+qu
+
+int vlan 100
+ip add 192.168.1.1 255.255.255.0
+qu
+int vlan 200
+ip add 192.168.2.1 255.255.255.0
+qu
+
+
+-- DHCP Config --
+dhcp server ip-pool <name of vlan>
+network x.x.x.x mask x.x.x.x
+gateway-list x.x.x.x
+address range <start> <end>
+
+dhcp enable
+
+-- <adsign vlan to interface> --
+int gex/x/x
+port link-type access
+port access vlan xxx
+
+-- set enable dhcp on vlan --
+int vlan xxx
+dhcp select server

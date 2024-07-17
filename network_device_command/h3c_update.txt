@@ -1,0 +1,33 @@
+sys
+int vlan 1
+ip add 10.10.0.1 255.255.255.0
+qu
+qu
+tftp 10.10.0.2 get S5570S_EI-CMW710-R1123.ipe
+boot-loader file flash:/S5570S_EI-CMW710-R1123.ipe all main
+y
+y
+reboot
+y
+
+y
+
+
+=================================================================================
+-- create ip for vlan --
+sys
+int vlan 1
+ip add 10.1.0.1 255.255.255.0
+qu
+
+-- update firmware --
+tftp <ip add num> get <file name> = tftp 10.1.0.200 get S5570S_EI-CMW710-R1123.ipe
+
+display version
+
+boot-loader file flash:/ <file name> = boot-loader file flash:/S5570S_EI-CMW710-R1123.ipe all main
+
+
+- อันนี้เฉพาะ Restore ไม่เกี่ยวกับ update -
+-- restore --
+restore startup-configuration from 2.2.2.2 config.cfg

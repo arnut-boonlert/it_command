@@ -1,0 +1,164 @@
+*******************************************************************
+*                 OSPF don't forget router-id                     *
+*******************************************************************   
+
+ciscoasa(config)#object network IN-OUT
+ciscoasa(config-network-object)#subnet 192.168.10.0 255.255.255.0
+ciscoasa(config-network-object)#nat (inside,outside) dynamic interface 
+
+
+ciscoasa(config)#object network IN-OUT2
+ciscoasa(config-network-object)#subnet 192.168.11.0 255.255.255.0
+ciscoasa(config-network-object)#nat (inside,outside) dynamic interface 
+ciscoasa(config-network-object)#ex
+
+ciscoasa(config)#object network DMZ-OUT
+ciscoasa(config-network-object)#subnet 192.168.30.0 255.255.255.0
+ciscoasa(config-network-object)#nat (DMZ,outside) dynamic interface 
+ciscoasa(config-network-object)#ex
+
+ciscoasa(config)#object network DMZ-OUT2
+ciscoasa(config-network-object)#subnet 192.168.31.0 255.255.255.0
+ciscoasa(config-network-object)#nat (DMZ,outside) dynamic interface 
+ciscoasa(config-network-object)#ex
+
+ciscoasa(config)#access-list DMZ-ACC extended permit icmp any any
+ciscoasa(config)#access-list DMZ-ACC extended permit tcp any any eq 80
+ciscoasa(config)#access-list DMZ-ACC extended permit tcp any any eq 8080
+ciscoasa(config)#access-list DMZ-ACC extended permit tcp any any eq 53
+ciscoasa(config)#access-list DMZ-ACC extended permit udp any any eq 53
+ciscoasa(config)#access-list DMZ-ACC extended permit udp any any eq 67
+ciscoasa(config)#access-list DMZ-ACC extended permit udp any any eq 68
+
+ciscoasa(config)#access-group DMZ-ACC in interface DMZ 
+
+ciscoasa(config)#access-list INT-ACC extended permit icmp any any
+ciscoasa(config)#access-list INT-ACC extended permit tcp any any eq 53
+ciscoasa(config)#access-list INT-ACC extended permit udp any any eq 53
+ciscoasa(config)#access-list INT-ACC extended permit tcp any any eq 80
+ciscoasa(config)#access-list INT-ACC extended permit tcp any any eq 8080
+
+ciscoasa(config)#access-group INT-ACC in interface outside
+
+
+
+
+ciscoasa#sh run
+: Saved
+:
+ASA Version 9.6(1)
+!
+hostname ciscoasa
+names
+!
+interface GigabitEthernet1/1
+ nameif inside
+ security-level 100
+ ip address 10.1.0.2 255.255.255.252
+!
+interface GigabitEthernet1/2
+ nameif outside
+ security-level 0
+ ip address 10.2.0.2 255.255.255.252
+!
+interface GigabitEthernet1/3
+ nameif DMZ
+ security-level 70
+ ip address 10.3.0.2 255.255.255.252
+!
+interface GigabitEthernet1/4
+ no nameif
+ no security-level
+ no ip address
+ shutdown
+!
+interface GigabitEthernet1/5
+ no nameif
+ no security-level
+ no ip address
+ shutdown
+!
+interface GigabitEthernet1/6
+ no nameif
+ no security-level
+ no ip address
+ shutdown
+!
+interface GigabitEthernet1/7
+ no nameif
+ no security-level
+ no ip address
+ shutdown
+!
+interface GigabitEthernet1/8
+ no nameif
+ no security-level
+ no ip address
+ shutdown
+!
+interface Management1/1
+ management-only
+ no nameif
+ no security-level
+ no ip address
+ shutdown
+!
+object network DMZ-OUT
+ subnet 192.168.30.0 255.255.255.0
+ nat (DMZ,outside) dynamic interface
+object network DMZ-OUT2
+ subnet 192.168.31.0 255.255.255.0
+ nat (DMZ,outside) dynamic interface
+object network IN-OUT
+ subnet 192.168.10.0 255.255.255.0
+ nat (inside,outside) dynamic interface
+object network IN-OUT2
+ subnet 192.168.11.0 255.255.255.0
+ nat (inside,outside) dynamic interface
+!
+!
+access-list DMZ-ACC extended permit icmp any any
+access-list DMZ-ACC extended permit tcp any any eq www
+access-list DMZ-ACC extended permit tcp any any eq 8080
+access-list DMZ-ACC extended permit tcp any any eq domain
+access-list DMZ-ACC extended permit udp any any eq domain
+access-list DMZ-ACC extended permit udp any any eq bootps
+access-list DMZ-ACC extended permit udp any any eq bootpc
+access-list INT-ACC extended permit icmp any any
+access-list INT-ACC extended permit tcp any any eq domain
+access-list INT-ACC extended permit udp any any eq domain
+access-list INT-ACC extended permit tcp any any eq www
+access-list INT-ACC extended permit tcp any any eq 8080
+!
+!
+access-group DMZ-ACC in interface DMZ
+access-group INT-ACC in interface outside
+!
+!
+class-map inspection_default
+ match default-inspection-traffic
+!
+policy-map type inspect dns preset_dns_map
+ parameters
+  message-length maximum 512
+policy-map global_policy
+ class inspection_default
+  inspect dns preset_dns_map
+  inspect ftp 
+  inspect tftp 
+!
+service-policy global_policy global
+!
+telnet timeout 5
+ssh timeout 5
+!
+!
+!
+!
+router ospf 1
+ router-id 1.0.0.1
+ log-adjacency-changes
+ network 10.1.0.0 255.255.255.252 area 0
+ network 10.3.0.0 255.255.255.252 area 0
+ network 10.2.0.0 255.255.255.252 area 0
+!
