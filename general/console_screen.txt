@@ -10,15 +10,25 @@ screen -h 10000 /dev/tty.xxxx 9600.
 
 # or
 
-## set scrollback buffer to 10000 lines and enable auto log into specific file name
+## set scrollback buffer to 10000 lines and enable log into specific file name
 screnn -h 10000 -L -Logfile [file_name] /dev/tty.xxxx 9600
 
+
+####### Option #######
+-h [num]    	# set scroll back lines
+-L		# enable log and save after close session
+-Logfile [name]	# custom log file name
+-ls		# show all session
+-r [pid]	# reattach session
 
 
 ####### Utilize #######
 
 - close and kill session:
-ctl + a + k --> y
+ctl + a + k
+
+- close but not kill session (deattach)
+ctl + a + d 
 
 - scroll up, down:
 ctl + a + esc --> esc
@@ -30,7 +40,8 @@ ctl + a + : + scrollback 10000
 ctl + a + i 
 
 
+
 !!!!!!!!!!!!!!!!
-press ctl + a then release finger then another press [key]
+press ctl + a then release finger then press another [key]
 
 https://medium.com/@yaonoiman/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B8%87%E0%B8%B2%E0%B8%99-serial-terminal-%E0%B8%9A%E0%B8%99-macbook-%E0%B8%94%E0%B9%89%E0%B8%A7%E0%B8%A2-screen-b1ad4af6ad99
