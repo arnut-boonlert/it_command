@@ -37,6 +37,9 @@ screen -wipe
 - close and kill session:
 ctl + a + k
 
+- start and stop log
+ctl + a + H
+
 - close but not kill session (detach)
 ctl + a + d 
 
