@@ -1,0 +1,11 @@
+show run
+show version
+show ntp status
+show ntp servers
+show environment
+show system
+show uptime
+show interface brief
+show interface
+show interface transceiver	
+show module
