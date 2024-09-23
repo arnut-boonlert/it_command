@@ -1,0 +1,26 @@
+## At the current directory
+
+###### for MAC os
+
+## create virtual environment
+python -m venv myenv
+virtualenv myenv
+source myenv/bin/activate
+
+pip install [package_name]
+#or
+pip install [package_name]==[version]
+
+pip list
+pip freeze > requirements.txt
+
+deactivate
+
+
+## use virtual environment pulled from github
+source myenv/bin/activate
+pip install -r requirments.txt
+
+####### end
+
+
