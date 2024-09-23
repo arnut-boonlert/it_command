@@ -20,6 +20,7 @@ deactivate
 ## use virtual environment pulled from github
 source myenv/bin/activate
 pip install -r requirments.txt
+deactivate
 
 ####### end
 
